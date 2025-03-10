@@ -1,10 +1,36 @@
-version: 3
+version: "3.9"
+
 services:
-  client:
-    dockerfile: ./client/Dockerfile
   router:
-    dockerfile: ./router/Dockerfile
+    build: ./router
+    container_name: router
+    networks:
+      mitm_net:
+        ipv4_address: 192.168.1.1
+      bridge_net:
+
   attacker:
-    dockerfile: ./attacker/Dockerfile
+    build: ./attacker
+    container_name: attacker
+    privileged: true  # Required for iptables
+    networks:
+      mitm_net:
+        ipv4_address: 192.168.1.100
+
+  client:
+    build: ./client
+    container_name: client
+    networks:
+      mitm_net:
+        ipv4_address: 192.168.1.2
+    depends_on:
+      - attacker
+
 networks:
-  ...
+  mitm_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+  bridge_net:
+    driver: bridge
