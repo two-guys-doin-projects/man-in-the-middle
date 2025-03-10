@@ -1,0 +1,10 @@
+version: 3
+services:
+  client:
+    dockerfile: ./client/Dockerfile
+  router:
+    dockerfile: ./router/Dockerfile
+  attacker:
+    dockerfile: ./attacker/Dockerfile
+networks:
+  ...
