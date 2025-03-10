@@ -8,7 +8,7 @@ USER root
 RUN apk add --no-cache iptables iproute2
 
 # Ensure forwarding is enabled inside the container
-RUN sysctl -w net.ipv4.ip_forward=1
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 
 # Copy entrypoint script
 COPY router_entrypoint.sh /usr/local/bin/
