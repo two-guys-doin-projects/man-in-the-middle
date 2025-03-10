@@ -1,9 +1,18 @@
 version: "3.9"
 
+
 services:
   router:
     build: ./router
     container_name: router
+    privileged: true  # Gives full permissions to modify networking
+    cap_add:
+      - NET_ADMIN  # Required for iptables & forwarding
+      - NET_RAW  # Required for packet manipulation
+    sysctls:
+      - net.ipv4.ip_forward=1  # Ensures IP forwarding is enabled
+    security_opt:
+      - apparmor=unconfined  # Disable AppArmor restrictions
     networks:
       mitm_net:
         ipv4_address: 192.168.1.1
@@ -12,7 +21,7 @@ services:
   attacker:
     build: ./attacker
     container_name: attacker
-    privileged: true  # Required for iptables
+    privileged: true
     networks:
       mitm_net:
         ipv4_address: 192.168.1.100
