@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 ip route del default
-ip route add default via 192.168.1.100
+ip route add default via 192.168.15.3
 
 echo "Client setup complete!"
 exec "$@"

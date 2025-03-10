@@ -1,6 +1,7 @@
 FROM kalilinux/kali-rolling
 
 RUN apt-get update --fix-missing && apt-get upgrade -y && apt install -y  iptables ettercap-text-only
+RUN apt-get update && apt-get install -y net-tools
 
 USER root
 
@@ -15,3 +16,5 @@ USER root
 ENTRYPOINT ["/usr/local/bin/attacker_entrypoint.sh"]
 
 # CMD ["ettercap", "-T", "-M", "arp:remote", "/192.168.1.2//", "/192.168.1.1//"]
+
+CMD ["tail", "-f", "/dev/null"]

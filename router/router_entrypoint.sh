@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 # Ensure the script is running as root

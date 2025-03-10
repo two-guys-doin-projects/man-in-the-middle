@@ -11,7 +11,7 @@ RUN apk add --no-cache iptables iproute2
 RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 
 # Copy entrypoint script
-COPY router_entrypoint.sh /usr/local/bin/
+COPY ./router_entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/router_entrypoint.sh
 
 # Keep running as root
@@ -19,3 +19,5 @@ USER root
 
 # Set entrypoint script
 ENTRYPOINT ["/usr/local/bin/router_entrypoint.sh"]
+
+CMD ["tail", "-f", "/dev/null"]

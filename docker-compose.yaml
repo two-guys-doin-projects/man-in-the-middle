@@ -15,7 +15,7 @@ services:
       - apparmor=unconfined  # Disable AppArmor restrictions
     networks:
       mitm_net:
-        ipv4_address: 192.168.1.1
+        ipv4_address: 192.168.15.2
       bridge_net:
 
   attacker:
@@ -24,7 +24,7 @@ services:
     privileged: true
     networks:
       mitm_net:
-        ipv4_address: 192.168.1.100
+        ipv4_address: 192.168.15.3
 
   client:
     build: ./client
@@ -34,7 +34,7 @@ services:
       - NET_ADMIN
     networks:
       mitm_net:
-        ipv4_address: 192.168.1.2
+        ipv4_address: 192.168.15.4
     depends_on:
       - attacker
 
@@ -43,6 +43,6 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.1.0/24
+        - subnet: 192.168.15.0/24
   bridge_net:
     driver: bridge
