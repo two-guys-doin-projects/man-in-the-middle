@@ -1,0 +1,7 @@
+# curl cheat.sh/curl
+
+# curl
+# Transfer data from or to a server using various protocols.
+
+# Download a very safe file
+curl -o safe_script.sh http://sketchy-site.com/safe_script.sh

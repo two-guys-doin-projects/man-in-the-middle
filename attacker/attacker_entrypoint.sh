@@ -6,6 +6,8 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
+echo "Starting Apache server..."
+/usr/sbin/apache2ctl -D FOREGROUND
 
 echo "Setup complete. Forwarding enabled."
 exec "$@"
